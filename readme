@@ -1,0 +1,22 @@
+# Alunos: Leandro Shindi Ekamoto, Diego Takaki
+# Professor: D.r Edson Takashi Matsubara
+# 28/01/2017
+#
+Antes de iniciar o jogo eu faço o treinamento da rede de acordo com o dataset que já
+foi coletado na primeira parte do trabalho para ajustar os pesos da rede neural, linha 311, arquivo pacman.py
+
+Depois do treino eu adicionei uma rotina na classe ClassicGameRules para atribuir na classe Game
+um atributo que vai ter a classe joystick() linha 306, arquivo pacman.py
+
+Na classe Game, arquivo game.py, linha 729 começo a capturar os frames da webcam, adicionei um if
+para pegar apenas ações relacionas ao pacman, passei o frame para a classe Joystick
+método predict para poder identificar qual comando está sendo capturado pela rede neural.
+
+Depois de coletado o comando verifico se esse comando é um comando válido que é fornecido pela
+classe GameState() método getLegalActions(0) passando zero que é o agente pacman, caso
+o comando é valido eu altero a variável action que é o que o pacman vai executar.
+
+Observação:
+Deixei os Ghost paralisados passando 1 no atributo numAgents arquivo game.py, linha 636
+para voltar ao normal basta descomentar a linha 633 e comentar a linha 636.
+Fiz isso para testar os comandos
