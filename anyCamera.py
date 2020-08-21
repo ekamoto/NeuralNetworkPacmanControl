@@ -18,7 +18,7 @@ import random
 
 # gera numeros aleatorios obedecendo a regra:  a <= rand < b
 def criar_linha():
-    print "-"*80
+    print ("-"*80)
 
 def rand(a, b):
     return (b-a) * random.random() + a
@@ -109,8 +109,8 @@ class RedeNeural:
     def fase_forward(self, entradas):
 
         if(self.teste):
-            print "Entradas:"
-            print entradas
+            print ("Entradas:")
+            print (entradas)
         # input activations: -1 por causa do bias
         #if(self.teste):
         #    print "fase_forward_valor: " +str(self.nos_entrada - 1);
@@ -120,20 +120,20 @@ class RedeNeural:
         #print "Nos_entradas:" + str(self.nos_entrada)
 
         if(self.teste):
-            print "Nos entrada=" + str(self.nos_entrada)
+            print ("Nos entrada=" + str(self.nos_entrada))
 
         for i in range(self.nos_entrada - 1):
         #    if(self.teste):
         #        print "fase_forward_entradas:" +str(i)+"-"+str(entradas[i]);
             self.ativacao_entrada[i] = entradas[i]
             if(self.teste):
-                print "Valor Nos Entrada:" + str(self.ativacao_entrada[i])
+                print ("Valor Nos Entrada:" + str(self.ativacao_entrada[i]))
 
         #print "Entrada_1:"
         #print self.ativacao_entrada;
 
         if(self.teste):
-            print "Nos ocultos=" + str(self.nos_ocultos)
+            print ("Nos ocultos=" + str(self.nos_ocultos))
         # calcula as ativacoes dos neuronios da camada escondida
         for j in range(self.nos_ocultos):
 
@@ -144,20 +144,20 @@ class RedeNeural:
                 #print "ativacao_entrada_1_Teste:" +str(self.ativacao_entrada[i])
 
             if(self.teste):
-                print "Soma Nos ocultos=" + str(soma)
+                print ("Soma Nos ocultos=" + str(soma))
 
             #print "Soma_Nos_Ocultos:"+ str(soma)
 
             self.ativacao_ocultos[j] = funcao_ativacao_log(soma)
             if(self.teste):
-                print "Valor Nos Ocultos:" + str(self.ativacao_ocultos[j])
+                print ("Valor Nos Ocultos:" + str(self.ativacao_ocultos[j]))
             #print "AtivacaoOcultos_1:"+ str(self.ativacao_ocultos[j])
 
         # calcula as ativacoes dos neuronios da camada de saida
         # Note que as saidas dos neuronios da camada oculta fazem o papel de entrada
         # para os neuronios da camada de saida.
         if(self.teste):
-            print "Nos saida=" + str(self.nos_saida)
+            print ("Nos saida=" + str(self.nos_saida))
         for j in range(self.nos_saida):
             soma = 0.0
             for i in range(self.nos_ocultos):
@@ -165,14 +165,14 @@ class RedeNeural:
 
             #print "Soma_1:" + str(soma)
             if(self.teste):
-                print "Soma_saida:" + str(soma)
+                print ("Soma_saida:" + str(soma))
 
             self.ativacao_saida[j] = funcao_ativacao_log(soma)
 
         #print "Ativacao Saida_1:" + str(self.ativacao_saida[0])
         if(self.teste):
-            print "Saida ativacao:"
-            print self.ativacao_saida
+            print ("Saida ativacao:")
+            print (self.ativacao_saida)
 
         return self.ativacao_saida
 
@@ -184,15 +184,15 @@ class RedeNeural:
         erro = 0.0
         for i in range(self.nos_saida):
 
-            print "Saida Desejada:" + str(saidas_desejadas[i])
-            print "Ativacao saida:" + str(self.ativacao_saida[i])
+            print ("Saida Desejada:" + str(saidas_desejadas[i]))
+            print ("Ativacao saida:" + str(self.ativacao_saida[i]))
 
             #if(self.ativacao_saida[i] < 0):
             #    self.ativacao_saida[i] = -1*self.ativacao_saida[i]
 
-            print str(saidas_desejadas[i]) + " - " +  str(self.ativacao_saida[i])
+            print (str(saidas_desejadas[i]) + " - " +  str(self.ativacao_saida[i]))
             erro = np.float64(saidas_desejadas[i]) - np.float64(self.ativacao_saida[i])
-            print "Erro:" + str(erro)
+            print ("Erro:" + str(erro))
 
             output_deltas[i] = derivada_funcao_ativacao_log(self.ativacao_saida[i]) * erro
             #print "output_deltas:"+str(output_deltas[i])
@@ -254,7 +254,7 @@ class RedeNeural:
                 erro = erro + self.fase_backward(saidas_desejadas)
 
             if i % 100 == 0:
-                print "Erro = %2.3f"%erro
+                print ("Erro = %2.3f"%erro)
 
 ########################################################################################################################
 ########################################################################################################################
@@ -345,7 +345,7 @@ class GetColor():
                     counter += 1
             lfile_name = self.main_dir+os.sep+"file%05d_%s.png"%(counter,patch_class)
             cv2.imwrite(lfile_name,self.thsv)
-            print "%s saved!"%(lfile_name)
+            print ("%s saved!"%(lfile_name))
 
     def update_threshold(self):
         if self.ltmin is not None:
@@ -416,6 +416,7 @@ class GetColor():
                 self.ltmax = tmax
 
 class AnyJoystick:
+
     def __init__(self,main_dir = 'dataset'):
         self.main_dir = main_dir
         self.X = []
@@ -424,6 +425,7 @@ class AnyJoystick:
         self.vclass = []
         self.clf = None
         self.cont =0
+        # nos_entrada, nos_ocultos, nos_saida
         self.n = RedeNeural(400, 12, 1)
 
     def img2instance(self,frame):
@@ -444,12 +446,17 @@ class AnyJoystick:
 
     def load(self):
         cont = 0;
+
+        #Carrego os arquivos da amostra das imagens
         for file_name in sorted(os.listdir(self.main_dir)):
             #print cont
             cont = cont+1
             fname = self.main_dir+os.sep+file_name
             frame = cv2.imread(fname)
             tclass = file_name.split('.')[0].split('_')[1]
+
+            # Em x eu tenho os frames ou seja as imagens
+            # e em y eu tenho as classes
             self.X.append(self.img2instance(frame))
             self.y.append(self.num_class(tclass))
 
@@ -462,6 +469,7 @@ class AnyJoystick:
         self.clf.fit(self.X,self.y)
 
     def evaluate(self):
+        
         X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.30, random_state=42)
         self.clf.fit(X_train,y_train)
         pred = self.clf.predict(X_test)
@@ -571,12 +579,13 @@ class AnyJoystick:
                 matrix.append([listax, lista_y])
             self.cont = self.cont+1
 
+        # nos_entrada, nos_ocultos, nos_saida
         self.n = RedeNeural(400, 12, 1)
 
         # treinar com os padroes
         self.n.treinar(matrix)
 
-        print "-----------------------------------------------hisamototeste--------------------------------------------------------"
+        print ("-----------------------------------------------hisamototeste--------------------------------------------------------")
         #indice = 0
 
         #for p in X_test:
@@ -601,7 +610,7 @@ class AnyJoystick:
                 lista_teste.append(lista/100.0)
 
             array = self.n.fase_forward(lista_teste)
-            print array[0]
+            print (array[0])
             return str(self.analisaClasse(array[0]))
 
             #return "Stop"

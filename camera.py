@@ -38,16 +38,16 @@ while(True):
         break
     elif key == ord('r'):
         obj.reset()
-        print "Color reset!"
+        print ("Color reset!")
     elif key == ord('s'): # salva posicao do retangulo e cor da segmentacao
         obj.save()
-        print "Saved"
+        print ("Saved")
     elif key in keymap.keys(): # salva seta para cima,baixo,direta,esquerda e espao
             patch_class = keymap[key]
             obj.save_patch(patch_class)
-            print "%s saved"%(patch_class)
+            print ("%s saved"%(patch_class))
     elif key == ord('t'):
-        print "Training algorithm"
+        print ("Training algorithm")
         joystick.load()
         joystick.train()
     #joystick.predict(obj.thsv)
