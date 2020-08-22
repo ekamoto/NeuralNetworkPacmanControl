@@ -2,6 +2,14 @@
 # Professor: D.r Edson Takashi Matsubara
 # 28/01/2017
 #
+# sudo apt install python3-numpy
+# sudo apt-get install python3-opencv
+# sudo apt install python3-pip
+# pip3 install -U scikit-learn
+# sudo apt-get install python3-tk tk-dev
+# python3 pacman.py
+
+
 Antes de iniciar o jogo eu faço o treinamento da rede de acordo com o dataset que já
 foi coletado na primeira parte do trabalho para ajustar os pesos da rede neural, linha 311, arquivo pacman.py
 

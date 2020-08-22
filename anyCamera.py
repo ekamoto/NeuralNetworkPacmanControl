@@ -552,7 +552,8 @@ class AnyJoystick:
                 contador = 0
                 for lista in lista_y:
                     #lista_y[contador] = lista_y[contador]/10.0
-                    l1ista_y[contador] = 0.11
+                    lista_y[contador] = 0.11
+                    lista_y[contador] = 0.1
                     contador = contador + 1
 
                 matrix.append([listax, lista_y])
