@@ -36,48 +36,36 @@ def derivada_funcao_ativacao(x):
 # Normal logistic function.
 # saida em [0, 1]
 def funcao_ativacao_log(x):
-    #if(x<0):
-    #    x = x*(-1)
-    #print "PORRA:" + str(x)
     return 1 / ( 1 + math.exp(-x))
 
 # derivada da funcao
 def derivada_funcao_ativacao_log(x):
-    #print "funcao:" +str(x)
-    #if(x<0):
-    #    x = x*(-1)
     ret = -1*math.log(x) * (1 - math.log(x))
-    #print "ret:" + str(ret)
     return ret
-
-# Logistic function with output in [-1, 1].
-def funcao_ativacao_log2(x):
-    return 1 - 2 * log(x)
-
-# derivada da funcao
-def derivada_funcao_ativacao_log2(x):
-
-    return  -5*math.log(x) * (1 - math.log(x))
 
 class RedeNeural:
     def __init__(self, nos_entrada, nos_ocultos, nos_saida):
         # camada de entrada
         self.nos_entrada = nos_entrada + 1 # +1 por causa do no do bias
+
         # camada oculta
         self.nos_ocultos = nos_ocultos
+
         # camada de saida
         self.nos_saida = nos_saida
-        # hisamoto
+
         # quantidade maxima de max_interacoes
         self.max_interacoes = 10
+
         # taxa de aprendizado
         self.taxa_aprendizado = 0.01
+
         # momentum Normalmente eh ajustada entre 0.5 e 0.9
         self.momentum = 0.1
         self.teste = 0
 
         # activations for nodes
-        # cria uma matriz, preenchida com uns, de uma linha pela quantidade de nos
+        # cria array, preenchida com uns, de uma linha pela quantidade de nos
         self.ativacao_entrada = np.ones(self.nos_entrada)
         self.ativacao_ocultos = np.ones(self.nos_ocultos)
         self.ativacao_saida = np.ones(self.nos_saida)
@@ -122,9 +110,8 @@ class RedeNeural:
         if(self.teste):
             print ("Nos entrada=" + str(self.nos_entrada))
 
+        # entrada shindi
         for i in range(self.nos_entrada - 1):
-        #    if(self.teste):
-        #        print "fase_forward_entradas:" +str(i)+"-"+str(entradas[i]);
             self.ativacao_entrada[i] = entradas[i]
             if(self.teste):
                 print ("Valor Nos Entrada:" + str(self.ativacao_entrada[i]))
@@ -242,7 +229,7 @@ class RedeNeural:
 
     def treinar(self, entradas_saidas):
 
-        #print entradas_saidas
+        # max_interacoes = quantidade de vezes que o ciclo da rede ira processar
         for i in range(self.max_interacoes):
             erro = 0.0
             l = 0
@@ -438,21 +425,33 @@ class AnyJoystick:
         return instance
 
     def num_class(self,tclass):
+
+        # Enumera um dicionario com a classe e um indice
+
+        # Verifica se a classe ja nao foi adicionada
         if tclass not in self.hclass.keys():
+
             next_i = len(self.vclass)
+
+            # Adiciona a classe
             self.vclass.append(tclass)
+
+            # Quantidade de itens dessa classe
             self.hclass[tclass] = next_i
+
         return self.hclass[tclass]
 
     def load(self):
         cont = 0;
 
-        #Carrego os arquivos da amostra das imagens
+        # Carrego os arquivos da amostra das imagens
         for file_name in sorted(os.listdir(self.main_dir)):
             #print cont
             cont = cont+1
             fname = self.main_dir+os.sep+file_name
             frame = cv2.imread(fname)
+
+            # Corta a classe de acordo com o nome do arquivo
             tclass = file_name.split('.')[0].split('_')[1]
 
             # Em x eu tenho os frames ou seja as imagens
@@ -476,7 +475,7 @@ class AnyJoystick:
 
         matrix = []
 
-        # hisamoto
+        # Separando matriz por classe e fazendo a normalizacao dos dados
         for listax in X_train:
             lista_y = [y_train[self.cont]]
 
@@ -489,7 +488,7 @@ class AnyJoystick:
 
                 contador = 0
                 for lista in lista_y:
-                    lista_y[contador] = lista_y[contador]/10.0
+                    # lista_y[contador] = lista_y[contador]/10.0
                     lista_y[contador] = 0.44
                     contador = contador + 1
 
@@ -510,7 +509,7 @@ class AnyJoystick:
 
                 contador = 0
                 for lista in lista_y:
-                    lista_y[contador] = lista_y[contador]/10.0
+                    # lista_y[contador] = lista_y[contador]/10.0
                     lista_y[contador] = 0.33
                     contador = contador + 1
 
@@ -523,7 +522,7 @@ class AnyJoystick:
             lista_y = [y_train[self.cont]]
 
             if(lista_y == [2]):
-                #print listax
+                # print listax
                 contador = 0
                 for lista in listax:
                     listax[contador] = listax[contador]/100.0
@@ -531,7 +530,7 @@ class AnyJoystick:
 
                 contador = 0
                 for lista in lista_y:
-                    lista_y[contador] = lista_y[contador]/10.0
+                    # lista_y[contador] = lista_y[contador]/10.0
                     lista_y[contador] = 0.22
                     contador = contador + 1
 
@@ -552,8 +551,8 @@ class AnyJoystick:
 
                 contador = 0
                 for lista in lista_y:
-                    lista_y[contador] = lista_y[contador]/10.0
-                    lista_y[contador] = 0.11
+                    #lista_y[contador] = lista_y[contador]/10.0
+                    l1ista_y[contador] = 0.11
                     contador = contador + 1
 
                 matrix.append([listax, lista_y])
@@ -572,7 +571,7 @@ class AnyJoystick:
 
                 contador = 0
                 for lista in lista_y:
-                    lista_y[contador] = lista_y[contador]/10.0
+                    # lista_y[contador] = lista_y[contador]/10.0
                     lista_y[contador] = 0.5
                     contador = contador + 1
 
@@ -599,6 +598,7 @@ class AnyJoystick:
             #print(str(y_test[indice]/10.0) + '-->' + str(array[0]) + "--->" + str(self.analisaClasse(array[0])))
             #indice = indice + 1
 
+    # Analisa frame para retornar qual classe pertence
     def predict(self,frame):
         if self.clf is not None:
 
@@ -612,12 +612,6 @@ class AnyJoystick:
             array = self.n.fase_forward(lista_teste)
             print (array[0])
             return str(self.analisaClasse(array[0]))
-
-            #return "Stop"
-        #return "Stop"
-        #return "Sem valor"
-            #print self.vclass[self.clf.predict(inst)]
-            #return self.vclass[self.clf.predict(inst)]
 
     def analisaClasse(self, valor):
 
@@ -644,15 +638,17 @@ class AnyJoystick:
             #return "1 DIREITA"
             return "East"
 
-
-
 class AnyCamera:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
         self.obj = GetColor()
         self.obj.load()
         self.joystick = AnyJoystick()
+
+        # Carrega todas as imagens da pasta, e cria um array classificador
         self.joystick.load()
+
+        # Treina a Rede com as Imagens
         self.joystick.train()
 
     def getMove(self):
